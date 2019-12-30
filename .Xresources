@@ -1,0 +1,84 @@
+! -----------------------------------------------------------------------------
+! File: gruvbox-dark.xresources
+! Description: Retro groove colorscheme generalized
+! Author: morhetz <morhetz@gmail.com>
+! Source: https://github.com/morhetz/gruvbox-generalized
+! Last Modified: 6 Sep 2014
+! -----------------------------------------------------------------------------
+
+! hard contrast: *background: #1d2021
+*background: #282828
+! soft contrast: *background: #32302f
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
+
+urxvt*font:             xft:Bitstream Vera Sans Mono:size=10, xft:FontAwesome:size=6, xft:Icons:size:6
+urxvt*termName:         rxvt
+urxvt*scrollBar:        false
+urxvt*matcher.button:   1
+ 
+urxvt*fading:           50
+urxvt*fadeColor:        #000000
+ 
+Xft*dpi:                96
+Xft*antialias:          true
+Xft*hinting:            full
+
+URxvt.transparent:   true
+URxvt.tintColor:     white
+URxvt.shading: 20 
+ 
+! URxvt*background:                     #002b36
+! URxvt*foreground:                     #93a1a1
+! URxvt*cursorColor:                    #93a1a1
+! 
+! URxvt*scrollColor:                    #93a1a1
+! URxvt*highlightColor:                 #586e75
+! URxvt*highlightTextColor:             #839496
+! 
+! URxvt*color0:                         #002b36
+! URxvt*color1:                         #dc322f
+! URxvt*color2:                         #859900
+! URxvt*color3:                         #b58900
+! URxvt*color4:                         #268bd2
+! URxvt*color5:                         #6c71c4
+! URxvt*color6:                         #2aa198
+! URxvt*color7:                         #93a1a1
+! URxvt*color8:                         #657b83
+! URxvt*color9:                         #dc322f
+! URxvt*color10:                        #859900
+! URxvt*color11:                        #b58900
+! URxvt*color12:                        #268bd2
+! URxvt*color13:                        #6c71c4
+! URxvt*color14:                        #2aa198
+! URxvt*color15:                        #fdf6e3
+! 
+! URxvt*color16:                        #cb4b16
+! URxvt*color17:                        #d33682
+! URxvt*color18:                        #073642
+! URxvt*color19:                        #586e75
+! URxvt*color20:                        #839496
+! URxvt*color21:                        #eee8d5
