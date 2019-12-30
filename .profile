@@ -25,7 +25,7 @@ export LESS_TERMCAP_se="$(printf '%b' '[0m')"; a="${a%_}"
 export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"; a="${a%_}"
 export LESS_TERMCAP_ue="$(printf '%b' '[0m')"; a="${a%_}"
 
-export LOCKER="$HOME/ved/dotfiles/scripts/lock.sh"
+export LOCKER="$HOME/scripts/lock.sh"
 
 [ ! -f ~/.config/shortcutrc ] && shortcuts >/dev/null 2>&1
 

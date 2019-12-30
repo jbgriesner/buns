@@ -25,7 +25,7 @@ SAVEHIST=100000
 
 # End of lines added by compinstall
 
-export PATH="${PATH}:~/ved/dotfiles/scripts/:${HOME}/.local/bin/:${HOME}/.python3.7/usr/bin"
+export PATH="${PATH}:${HOME}/scripts/:${HOME}/.local/bin/:${HOME}/.python3.7/usr/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/lib:/usr/lib:/usr/local/lib:~/.python3.7"
 
 if [[ "$(tty)" = "/dev/tty1" ]]; then

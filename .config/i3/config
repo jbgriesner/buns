@@ -219,7 +219,7 @@ bindsym $mod+r mode "resize"
 # }
 
 
-bindsym $mod+SHIFT+Return exec lock
+bindsym $mod+SHIFT+Return exec $HOME/scripts/lock
 bindsym $mod+SHIFT+n exec redshift -O 3900 -b 0.7
 bindsym $mod+SHIFT+d exec redshift -x
 
