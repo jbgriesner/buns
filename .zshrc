@@ -14,7 +14,7 @@ function cheat() {
 alias l='ls -lah --color=auto'
 alias config='/usr/bin/git --git-dir=$HOME/.buns/ --work-tree=$HOME'
 alias get_nvim='curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-alias vv='nvim'
+alias v='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
 
 config config --local status.showUntrackedFiles no
 autoload -Uz compinit promptinit

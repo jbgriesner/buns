@@ -35,30 +35,52 @@
 *color7:  #a89984
 *color15: #ebdbb2
 
-urxvt*font:             xft:Bitstream Vera Sans Mono:size=10, xft:FontAwesome:size=6, xft:Icons:size:6
+! urxvt*font:             xft:Bitstream Vera Sans Mono:size=10, xft:FontAwesome:size=6, xft:Icons:size:6
+
+
+
+URxvt.allow_bold:           true
+URxvt*font: xft:Consolas:size=12, xft:Inconsolata for Powerline
+URxvt*boldFont: xft:inconsolata:bold:pixelsize=18
+URxvt*letterSpace: -1
+
+
+
+
 urxvt*termName:         rxvt
 urxvt*scrollBar:        false
 urxvt*matcher.button:   1
- 
+
 urxvt*fading:           50
 urxvt*fadeColor:        #000000
- 
+
 Xft*dpi:                96
 Xft*antialias:          true
 Xft*hinting:            full
 
+! *dpi: 210
+! Xft.dpi: 210
+Xft.antialias: true
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
+
+Sxiv.foreground: #a89984
+Sxiv.background: #282828
+
 URxvt.transparent:   true
 URxvt.tintColor:     white
-URxvt.shading: 20 
- 
+URxvt.shading: 20
+
 ! URxvt*background:                     #002b36
 ! URxvt*foreground:                     #93a1a1
 ! URxvt*cursorColor:                    #93a1a1
-! 
+!
 ! URxvt*scrollColor:                    #93a1a1
 ! URxvt*highlightColor:                 #586e75
 ! URxvt*highlightTextColor:             #839496
-! 
+!
 ! URxvt*color0:                         #002b36
 ! URxvt*color1:                         #dc322f
 ! URxvt*color2:                         #859900
@@ -75,7 +97,7 @@ URxvt.shading: 20
 ! URxvt*color13:                        #6c71c4
 ! URxvt*color14:                        #2aa198
 ! URxvt*color15:                        #fdf6e3
-! 
+!
 ! URxvt*color16:                        #cb4b16
 ! URxvt*color17:                        #d33682
 ! URxvt*color18:                        #073642
