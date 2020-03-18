@@ -62,6 +62,8 @@ bindsym $mod+Shift+q kill
 
 # Start rofi
 bindsym $mod+d exec rofi -show drun -columns 3
+bindsym $mod+c exec --no-startup-id "rofi -show calc -modi calc -no-show-match -no-sort"
+
 
 # change focus
 bindsym $mod+j focus left
@@ -249,6 +251,7 @@ bar {
 bindsym $mod+SHIFT+Return exec $HOME/scripts/lock
 bindsym $mod+SHIFT+n exec redshift -O 3900 -b 0.7
 bindsym $mod+SHIFT+d exec redshift -x
+bindsym $mod+p exec passmenu
 
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #exec_always --no-startup-id $HOME/scripts/fehbg
