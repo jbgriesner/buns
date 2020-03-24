@@ -1,106 +1,114 @@
-! -----------------------------------------------------------------------------
-! File: gruvbox-dark.xresources
-! Description: Retro groove colorscheme generalized
-! Author: morhetz <morhetz@gmail.com>
-! Source: https://github.com/morhetz/gruvbox-generalized
-! Last Modified: 6 Sep 2014
-! -----------------------------------------------------------------------------
+/* ! Use extended color scheme */
+  rofi.color-enabled:                  true
+! ! ! Color scheme for normal row
+  rofi.color-normal:                   argb:00000000,  #D8DEE9 , argb:00000000,  #efefef , #1B2B34
+! ! ! Color scheme for urgent row
+  rofi.color-urgent:                   argb:00000000,  #F99157 , argb:00000000,  #F99157 ,  #1B2B34
+! ! ! Color scheme for active row
+  rofi.color-active:                   argb:00000000,  #6699CC , argb:00000000,  #6699CC ,  #1B2B34
+! ! ! Color scheme windowx
+  rofi.color-window:                   argb:ee222222,  #FAC863 ,  #ffffff
+! ! ! Separator style (none, dash, solid)
+ x! rofi.separator-style:                solid
 
-! hard contrast: *background: #1d2021
-*background: #282828
-! soft contrast: *background: #32302f
-*foreground: #ebdbb2
-! Black + DarkGrey
-*color0:  #282828
-*color8:  #928374
-! DarkRed + Red
-*color1:  #cc241d
-*color9:  #fb4934
-! DarkGreen + Green
-*color2:  #98971a
-*color10: #b8bb26
-! DarkYellow + Yellow
-*color3:  #d79921
-*color11: #fabd2f
-! DarkBlue + Blue
-*color4:  #458588
-*color12: #83a598
-! DarkMagenta + Magenta
-*color5:  #b16286
-*color13: #d3869b
-! DarkCyan + Cyan
-*color6:  #689d6a
-*color14: #8ec07c
-! LightGrey + White
-*color7:  #a89984
-*color15: #ebdbb2
+Xft.dpi: 96
 
-! urxvt*font:             xft:Bitstream Vera Sans Mono:size=10, xft:FontAwesome:size=6, xft:Icons:size:6
+/* rofi.color-enabled: true */
 
+/* !                  bg       border   separator */
+/*                   rofi.color-window: #1d2021, #a89984, #a89984 */
 
+/* !                  !                  bg       fg       bg-alt   hl-bg    hl-fg */
+/*                   rofi.color-normal: #1d2021, #ebdbb2, #282828, #504945, #fbf1c7 */
+/*                   rofi.color-active: #d79921, #1d2021, #d79921, #fabd2f, #1d2021 */
+/*                   rofi.color-urgent: #cc241d, #1d2021, #cc241d, #fb4934, #1d2021 */
 
-URxvt.allow_bold:           true
-URxvt*font: xft:Consolas:size=12, xft:Inconsolata for Powerline
-URxvt*boldFont: xft:inconsolata:bold:pixelsize=18
-URxvt*letterSpace: -1
-
-
-
-
-urxvt*termName:         rxvt
-urxvt*scrollBar:        false
-urxvt*matcher.button:   1
-
-urxvt*fading:           50
-urxvt*fadeColor:        #000000
-
-Xft*dpi:                96
-Xft*antialias:          true
-Xft*hinting:            full
-
-! *dpi: 210
-! Xft.dpi: 210
-Xft.antialias: true
 Xft.hinting: true
 Xft.hintstyle: hintslight
-Xft.lcdfilter: lcddefault
+Xft.antialias: true
 Xft.rgba: rgb
 
-Sxiv.foreground: #a89984
-Sxiv.background: #282828
+!*FONT:        xft:Inconsolata For Powerline:style=bold:antialias=true
+!URxvt.font:    xft:Fantasque\ Sans\ Mono:size=12:style=bold:antialias=true
 
-URxvt.transparent:   true
-URxvt.tintColor:     white
-URxvt.shading: 20
+!URxvt.font:    xft::size=14:style=bold:antialias=true
 
-! URxvt*background:                     #002b36
-! URxvt*foreground:                     #93a1a1
-! URxvt*cursorColor:                    #93a1a1
+!r.theme: DMZ-black
+
+!URxvt.font :xft:Fantasque Sans Mono:style=regular:pixelsize=15:antialias=true
+!URxvt.font :xft:Monospace :style=regular:pixelsize=14:antialias=true
+URxvt.font:  xft:Source Code Pro Semibold:style=bold:pixelsize=13px:antialias=true
+
+!URxvt.font:  xft:Consolas for Powerline:style=Regular:pixelsize=17px:antialias=true
+/* URxvt.font:  xft:Fira Mono Medium for Powerline:style=Medium:pixelsize=12px:antialias=true */
+!URxvt.font:  xft:Monaco for Powerline:stylebold:pixelsize=12x:antialias=true
+!URxvt*font: xft:Inconsolata Nerd Font Mono:size=11, xft:DejaVu Sans:size=12
+
+URxvt.letterSpace:         -1
+
+*background: #ffffff
+*foreground: #000000
+! ! black
+ *color0: #000000
+ *color8: #000000
+! ! red
+ *color1:#A54242
+ *color9: #CC6666
+! ! green
+ *color2: #AAFFAA
+ *color10:#55BB55
+
+! ! yellow
+ *color3: #DE935F
+ *color11: #F0C674
+! ! blue
+ *color4: #1188AA
+ *color12: #1188AA
+! ! magenta
+ *color5: #85678F
+ *color13: #B294BB
+! ! cyan
+ *color6: #5E8D87
+ *color14: #8ABEB7
+! ! white
+ *color7: #ffffff
+ *color15: #C5C8C6
+
+URxvt.transparent : 1
+URxvt.shading : 30
+URxvt*fading:              30
+URxvt.internalBorder:      0
+URxvt.externalBorder:      0
+
+
+URxvt.scrollBar:           false
+
 !
-! URxvt*scrollColor:                    #93a1a1
-! URxvt*highlightColor:                 #586e75
-! URxvt*highlightTextColor:             #839496
+ URxvt.perl-ext-common:     matcher,resize-font,foo
+
 !
-! URxvt*color0:                         #002b36
-! URxvt*color1:                         #dc322f
-! URxvt*color2:                         #859900
-! URxvt*color3:                         #b58900
-! URxvt*color4:                         #268bd2
-! URxvt*color5:                         #6c71c4
-! URxvt*color6:                         #2aa198
-! URxvt*color7:                         #93a1a1
-! URxvt*color8:                         #657b83
-! URxvt*color9:                         #dc322f
-! URxvt*color10:                        #859900
-! URxvt*color11:                        #b58900
-! URxvt*color12:                        #268bd2
-! URxvt*color13:                        #6c71c4
-! URxvt*color14:                        #2aa198
-! URxvt*color15:                        #fdf6e3
+ URxvt.keysym.F11:          perl:fullscreen:switch
 !
-! URxvt*color16:                        #cb4b16
-! URxvt*color17:                        #d33682
-! URxvt*color18:                        #073642
-! URxvt*color19:                        #586e75
-! URxvt*color20:                        #839496
-! URxvt*color21:                        #eee8d5
+ URxvt.Resize-font.smaller: esc
+ URxvt.Resize-font.bigger:  S-Up
+!
+
+ URxvt.url-launcher:        /usr/bin/chromium
+ URxvt.keysym.M-Delete:     perl:matcher:list
+ URxvt.colorUL:             #006699
+
+
+URxvt.cursorBlink : 1
+
+URxvt.cursorUnderline : 1
+
+URxvt.cursorColor : cyan
+
+URxvt*saveLines: 60000
+
+URxvt.background: #1E262E
+
+
+URxvt.foreground :white
+!!URxvt.tintColor : yellow
+urxvt*blurRadius: 10
