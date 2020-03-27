@@ -1,6 +1,7 @@
 # Set font
 #font pango: Taskbar, Cantarell 9
-font pango: xft:Monospace :style=regular:pixelsize=14:antialias=true
+# font pango: xft:Monospace :style=regular:pixelsize=14:antialias=true
+font pango:Source Code Pro for Powerline Semibold 9
 
 set $mod Mod4
 
@@ -26,27 +27,23 @@ for_window    [class="Thunderbird"]          move container to $workspace4
 for_window    [class="TeamViewer"]           move container to $workspace9, floating enable, sticky disable
 for_window    [class="xfreerdp"]             move container to $workspace9
 
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # workspace switching
-bindsym $mod+Tab workspace back_and_forth
-workspace_auto_back_and_forth no
+#bindsym $mod+Tab workspace back_and_forth
+#workspace_auto_back_and_forth no
+
+#switch between workspaces
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+
+#toggle between workspaces
+bindsym $mod+n focus output left
 
 # lock screen
 bindsym $mod+x exec --no-startup-id lock
@@ -132,29 +129,64 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+set $workspace1 "1:  "
+set $workspace2 "2:  "
+set $workspace3 "3:  "
+set $workspace4 "4:  "
+set $workspace5 "5:  "
+set $workspace6 "6:  "
+set $workspace7 "7:  "
+set $workspace8 "8: "
+set $workspace9 "9:  "
+set $workspace10 "10:  "
+
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+#   bindsym $mod+1 workspace $ws1
+#   bindsym $mod+2 workspace $ws2
+#   bindsym $mod+3 workspace $ws3
+#   bindsym $mod+4 workspace $ws4
+#   bindsym $mod+5 workspace $ws5
+#   bindsym $mod+6 workspace $ws6
+#   bindsym $mod+7 workspace $ws7
+#   bindsym $mod+8 workspace $ws8
+#   bindsym $mod+9 workspace $ws9
+#   bindsym $mod+0 workspace $ws10
+#
+#   # move focused container to workspace
+#   bindsym $mod+Shift+1 move container to workspace $ws1
+#   bindsym $mod+Shift+2 move container to workspace $ws2
+#   bindsym $mod+Shift+3 move container to workspace $ws3
+#   bindsym $mod+Shift+4 move container to workspace $ws4
+#   bindsym $mod+Shift+5 move container to workspace $ws5
+#   bindsym $mod+Shift+6 move container to workspace $ws6
+#   bindsym $mod+Shift+7 move container to workspace $ws7
+#   bindsym $mod+Shift+8 move container to workspace $ws8
+#   bindsym $mod+Shift+9 move container to workspace $ws9
+#   bindsym $mod+Shift+0 move container to workspace $ws10
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -208,6 +240,16 @@ bindsym $mod+r mode "resize"
 
 
 
+#Open applications on specific workspaces
+assign [class="Chromium"] $workspace1
+assign [class="Thunar"] $workspace5
+assign [class="eclipse"] $workspace3
+assign [class="phpstorm"] $workspace3
+assign [class="Thunderbird"] $workspace6
+assign [class="vlc"] $workspace10
+assign [class="gvim"] $workspace3
+assign [class="xchat"] $workspace8
+
 
 
 
@@ -228,8 +270,34 @@ client.unfocused          $color_normal_gray     $color_normal_gray     $color_n
 client.urgent             $color_bright_yellow   $color_bright_yellow   $color_normal_black    $color_unused   $color_unused
 client.placeholder        $color_unused          $color_normal_black    $color_unused          $color_unused   $color_unused
 
+
+#  set $bg-color
+set $bg_special #FFFFFF
+set $bg-color #000000
+set $inactive-bg-color #000000
+set $inactive-bg-color   #2f343f
+set $text-color         #ffffff
+# set $inactive-text-color #2f343f
+#set $text-color          ##f3f4f5
+#set $inactive-text-color ##676E7D
+set $urgent-bg-color     #E53935
+
+# window colors          border          background         text                 indicator
+ client.focused          #FFFFFF         #2d2d2d            #FFFFFF              #00AAAA
+ client.unfocused        #000000          #000000           #777777              #FFFFFF
+ client.focused_inactive $inacative-bg-color $inactive-bg-color $inactive-text-color #006699
+ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #006699
+
+
 # Bar
 bar {
+  mode dock
+  separator_symbol " "
+
+  #status_command ~/.config/i3/lemonbar/i3_lemonbar.py
+  status_command i3blocks  -c ~/.config/i3blocks.conf
+  i3bar_command i3bar -t
+
   colors {
     # Whole color settings
     background $color_normal_gray
@@ -242,13 +310,20 @@ bar {
     inactive_workspace $color_normal_gray     $color_normal_gray      $color_normal_white
     urgent_workspace   $color_bright_yellow   $color_bright_yellow    $color_normal_black
   }
+  workspace_buttons yes
 
-  separator_symbol "  |  "
-  status_command py3status --dbus-notify --gevent
   position top
-  tray_output none
+
+
+# separator_symbol "  |  "
+# status_command py3status --dbus-notify --gevent
+# position top
+# tray_output none
 }
 
+
+#hide ugly edges green bar
+hide_edge_borders both
 
 
 
@@ -259,3 +334,7 @@ bindsym $mod+p exec passmenu
 
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #exec_always --no-startup-id $HOME/scripts/fehbg
+#
+#setting the wallpaper 
+exec --no-startup-id feh --bg-fill ~/bg.jpg
+

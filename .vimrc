@@ -73,6 +73,12 @@ let g:gruvbox_contrast_dark="hard"
     nmap <tab> :tabnext <CR>
     nmap <S-tab> :tabp <CR>
 
+    "previous buffer
+    nmap <C-h> :bp <CR>
+
+    "next buffer
+    nmap <C-l> :bn <CR>
+
     map <leader><space> :Files<CR>
     map <leader>w :w<CR>
     map <leader>q :wq<CR>
@@ -122,7 +128,8 @@ let g:gruvbox_contrast_dark="hard"
     nnoremap <leader>* 0y$/\V<c-r>"<cr>
 
     set path=.,**
-    set clipboard=unnamed
+    "set clipboard=unnamed
+    set clipboard=unnamedplus
     set splitbelow
     set splitright
     set backspace=indent,eol,start
