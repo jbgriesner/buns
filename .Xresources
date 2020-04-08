@@ -35,13 +35,13 @@ Xft.rgba: rgb
 
 !r.theme: DMZ-black
 
-!URxvt.font :xft:Fantasque Sans Mono:style=regular:pixelsize=15:antialias=true
 !URxvt.font :xft:Monospace :style=regular:pixelsize=14:antialias=true
-URxvt.font:  xft:Source Code Pro Semibold:style=bold:pixelsize=13px:antialias=true
+!!!!URxvt.font:  xft:Source Code Pro Semibold:style=bold:pixelsize=13px:antialias=true
+URxvt*font:                 xft:Source Code Pro Semibold:style=bold:pixelsize=13px:antialias=true, xft:DejaVu Sans:pixelsize=12
+URxvt*boldFont:             xft:Source Code Pro Semibold:style=bold:pixelsize=13px:antialias=true, xft:DejaVu Sans:pixelsize=12
+URxvt*letterSpace: 0
 
-!URxvt.font:  xft:Consolas for Powerline:style=Regular:pixelsize=17px:antialias=true
-/* URxvt.font:  xft:Fira Mono Medium for Powerline:style=Medium:pixelsize=12px:antialias=true */
-!URxvt.font:  xft:Monaco for Powerline:stylebold:pixelsize=12x:antialias=true
+
 !URxvt*font: xft:Inconsolata Nerd Font Mono:size=11, xft:DejaVu Sans:size=12
 
 URxvt.letterSpace:         -1
@@ -84,7 +84,7 @@ URxvt.externalBorder:      0
 URxvt.scrollBar:           false
 
 !
- URxvt.perl-ext-common:     matcher,resize-font,foo
+ URxvt.perl-ext-common:     matcher,resize-font,foo,tabbed
 
 !
  URxvt.keysym.F11:          perl:fullscreen:switch
@@ -112,3 +112,10 @@ URxvt.background: #1E262E
 URxvt.foreground :white
 !!URxvt.tintColor : yellow
 urxvt*blurRadius: 10
+
+
+
+URxvt.tabbed.tabbar-fg: 2
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 3
+URxvt.tabbed.tab-bg: 0

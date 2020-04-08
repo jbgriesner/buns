@@ -4,7 +4,7 @@
     syntax enable           " enable syntax processing
     set shortmess=aoOTI
     set autoread
-    set mouse=v
+    set mouse=a
     set magic
     set encoding=utf-8      " encoding
     set nowrap              " don't wrap lines
@@ -76,31 +76,35 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'lervag/vimtex'
     Plug 'sirver/ultisnips'
+    Plug 'bling/vim-bufferline'
+    Plug 'tpope/vim-fugitive'
+    Plug 'jeetsukumaran/vim-buffergator'
 
     " -- vim airline
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
-set background=dark
-colorscheme gruvbox
-let g:gruvbox_contrast_dark="hard"
+
+    set background=dark
+    colorscheme gruvbox
+    let g:gruvbox_contrast_dark="hard"
+
+" Always enable preview window on the right with 60% width
+    let g:fzf_preview_window = 'right:60%'
+" [Buffers] Jump to the existing window if possible
+    let g:fzf_buffers_jump = 1
 
 " Mappings
     let mapleader=" "
 
-    nmap <C-t> :tabnew <CR>
-    nmap <C-w> :tabclose <CR>
+"    nmap <C-t> :tabnew <CR>
+"    nmap <C-w> :tabclose <CR>
     "cycling tabs
-    nmap <tab> :tabnext <CR>
-    nmap <S-tab> :tabp <CR>
+"    nmap <tab> :tabnext <CR>
+"    nmap <S-tab> :tabp <CR>
 
-    map <leader>b :vsp<space>$BIB<CR>
-
-    "previous buffer
-    nmap <C-h> :bp <CR>
-    "next buffer
-    nmap <C-l> :bn <CR>
+"    map <leader>b :vsp<space>$BIB<CR>
 
     map <leader><space> :Files<CR>
     map <leader>w :w<CR>
@@ -108,69 +112,73 @@ let g:gruvbox_contrast_dark="hard"
 
     nnoremap vv 0v$
 
-"   nnoremap <leader>b :Buffers<CR>
-    nnoremap <leader>; :nohlsearch<CR>
-    nnoremap <leader>s :mksession<CR>
-    map <silent><leader>v :source ~/.vimrc<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
-    inoremap jj <esc>
-    set pastetoggle=<F2>
+" *******************************************************
+"   Buffers Management
+" *******************************************************
 
+    " This allows buffers to be hidden if you've modified a buffer.
+    " This is almost a must if you wish to use buffers in this way.
+    set hidden
+    " To open a new empty buffer
+    " This replaces :tabnew which I used to bind to this mapping
+    nmap <leader>k :enew<cr>
+    " Move to the next buffer
+    nmap <leader>l :bnext<CR>
+    nmap <tab> :bnext<CR>
+    " Move to the previous buffer
+    nmap <leader>h :bprevious<CR>
+    " Close the current buffer and move to the previous one
+    " This replicates the idea of closing a tab
+    nmap <leader>j :bp <BAR> bd #<CR>
     " Alternate file
     nnoremap ff :e#<CR>
+
+    nmap <leader>s :new<CR>
+    nmap <leader>v :vnew<CR>
+
+    " Show all open buffers and their status
+"    nmap <leader>b :ls<CR>
+
+    nnoremap <leader>b :Buffers<CR>
+    nnoremap <leader>, :Lines<CR>
+
+
+    nnoremap <leader>; :nohlsearch<CR>
+"    map <silent><leader>v :source ~/.vimrc<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
+    inoremap hh <esc>
+    set pastetoggle=<F2>
+
 
     " Map the ; key to toggle a selected fold opened/closed.
     nnoremap <silent>; @=(foldlevel('.')?'za':"\;")<CR>
     vnoremap ; zf
 
     " Easy window navigation
-    map <C-j> <C-w>h
-    map <C-k> <C-w>j
-    map <C-l> <C-w>k
-    map <C-m> <C-w>l
-
-    " move between splits
-    noremap <C-j> <C-w>h
-    noremap <C-k> <C-w>j
-    noremap <C-l> <C-w>k
-    noremap <C-m> <C-w>l
+    map <C-h> <C-w>h
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-l> <C-w>l
 
     nnoremap <Up>    :resize +2<CR>
 	nnoremap <Down>  :resize -2<CR>
 	nnoremap <Left>  :vertical resize +2<CR>
 	nnoremap <Right> :vertical resize -2<CR>
 
-    nnoremap J 0
-	nnoremap M $
-	nnoremap K G
-	nnoremap L gg
+    nnoremap H 0
+	nnoremap L $
+	nnoremap J <C-d>
+	nnoremap K <C-u>
+	vnoremap J <C-d>
+	vnoremap K <C-u>
 
 	xnoremap < <gv
     xnoremap > >gv|
 
-    map j h
-    map k j
-    map l k
-    map m l
-
-    noremap j h
-    noremap k j
-    noremap l k
-    noremap m l
-
-    nnoremap j h
-    nnoremap k j
-    nnoremap l k
-    nnoremap m l
-
-    vnoremap j h
-    vnoremap k j
-    vnoremap l k
-    vnoremap m l
     " Misc
     nnoremap gf :vertical wincmd f<CR>                  " 'gf' opens file under cursor in a new vertical split
     nnoremap gV `[v`]                                   " highlight last inserted text
 
-    map <silent> <C-n> :NERDTreeToggle<CR>
+    map <silent><C-n> :NERDTreeToggle<CR>
 
     " search current whole line in the file
     nnoremap <leader>* 0y$/\V<c-r>"<cr>
@@ -181,34 +189,44 @@ let g:gruvbox_contrast_dark="hard"
         set clipboard& clipboard+=unnamedplus
     endif
 
-    vnoremap <C-c> "*Y :let @+=@*<CR>
-    map <C-p> "+P
+    vnoremap <leader>y "*Y :let @+=@*<CR>
+    map <leader>p "+P
+
+" Commenting blocks of code.
+    autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+    autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+    autocmd FileType conf,fstab       let b:comment_leader = '# '
+    autocmd FileType tex              let b:comment_leader = '% '
+    autocmd FileType mail             let b:comment_leader = '> '
+    autocmd FileType vim              let b:comment_leader = '" '
+    noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+    noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 " Automatically deletes all trailing whitespace on save
     autocmd BufWritePre * %s/\s\+$//e
 
-    " When pressing <leader>cd switch to the directory of the open buffer
+" When pressing <leader>cd switch to the directory of the open buffer
     map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
-    vnoremap // y/<C-R>"<CR>
     nmap <buffer> <CR> <C-]>
     nmap <buffer> <BS> <C-T>
 
     vnoremap // y/<C-R>"<CR>
+    map <leader>/ :/<C-R>"<CR>
+    "vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
     nnoremap gr :grep <cword> *<CR>
     nnoremap Gr :grep <cword> %:p:h/*<CR>
     nnoremap gR :grep '\b<cword>\b' *<CR>
     nnoremap GR :grep '\b<cword>\b' %:p:h/*<CR>
 
-    "activate airline/Powerline fonts/icons
-    let g:airline_powerline_fonts = 0
-    let g:airline_theme = 'base16'
+"activate airline/Powerline fonts/icons
+    let g:airline_powerline_fonts = 1
     set laststatus=2
     " symbols
-    if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-    endif
+"   if !exists('g:airline_symbols')
+"       let g:airline_symbols = {}
+"    endif
     "enables vim_airline to have the upper tab_bar
     let g:airline#extensions#tabline#enabled = 1
 
@@ -239,6 +257,7 @@ let g:gruvbox_contrast_dark="hard"
     call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 " Vimtex
+    let g:Tex_BIBINPUTS="$BIB"
     let g:tex_flavor='latex'
     let g:vimtex_view_method='zathura'
     let g:vimtex_quickfix_mode=0
@@ -253,7 +272,7 @@ let g:gruvbox_contrast_dark="hard"
 
 " Runs a script that cleans out tex build files whenever I close out a .tex
 " file
-    autocmd VimLeave *.tex !texclear %
+    "autocmd VimLeave *.tex !texclear %
 
     nmap <leader>li <plug>(vimtex-info)
     nmap <leader>lI <plug>(vimtex-info-full)
