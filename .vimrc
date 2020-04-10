@@ -44,7 +44,7 @@
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
     set splitbelow
     set splitright
-    set showtabline=2       " Always show the tabs line
+"     set showtabline=2       " Always show the tabs line
     set backspace=indent,eol,start
     set smartcase           " ignore case if search pattern is all lowercase,
     set noruler             " Disable default status ruler
@@ -53,6 +53,7 @@
     set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico,*.swp,*.bak,*.pyc,*.class
     set wildignore+=*.pdf,*.psd
     set wildignore+=node_modules/*,bower_components/*
+    set noshowmode
 
     " Yank buffer's absolute path to X11 clipboard
     nnoremap <Leader>y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
@@ -79,12 +80,19 @@ call plug#begin('~/.vim/plugged')
     Plug 'bling/vim-bufferline'
     Plug 'tpope/vim-fugitive'
     Plug 'jeetsukumaran/vim-buffergator'
-
-    " -- vim airline
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'itchyny/lightline.vim'
+    Plug 'vifm/vifm.vim'
 call plug#end()
 
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
     set background=dark
     colorscheme gruvbox
@@ -110,10 +118,15 @@ call plug#end()
     map <leader>w :w<CR>
     map <leader>q :q<CR>
 
-    nnoremap vv 0v$
 
 " *******************************************************
-"   Buffers Management
+"   => Vifm
+" *******************************************************
+map vv :Vifm<CR>
+map vs :VsplitVifm<CR>
+
+" *******************************************************
+"   => Buffers Management
 " *******************************************************
 
     " This allows buffers to be hidden if you've modified a buffer.
@@ -123,7 +136,7 @@ call plug#end()
     " This replaces :tabnew which I used to bind to this mapping
     nmap <leader>k :enew<cr>
     " Move to the next buffer
-    nmap <leader>l :bnext<CR>
+"     nmap <leader>l :bnext<CR>
     nmap <tab> :bnext<CR>
     " Move to the previous buffer
     nmap <leader>h :bprevious<CR>
@@ -140,7 +153,7 @@ call plug#end()
 "    nmap <leader>b :ls<CR>
 
     nnoremap <leader>b :Buffers<CR>
-    nnoremap <leader>, :Lines<CR>
+    nnoremap <leader>f :Lines<CR>
 
 
     nnoremap <leader>; :nohlsearch<CR>
@@ -221,7 +234,7 @@ call plug#end()
     nnoremap GR :grep '\b<cword>\b' %:p:h/*<CR>
 
 "activate airline/Powerline fonts/icons
-    let g:airline_powerline_fonts = 1
+"     let g:airline_powerline_fonts = 1
     set laststatus=2
     " symbols
 "   if !exists('g:airline_symbols')
@@ -236,6 +249,10 @@ call plug#end()
     ""'►'
     let g:NERDTreeDirArrowCollapsible ='↪'
     ""'▼'
+    let NERDTreeShowLineNumbers=1
+    let NERDTreeShowHidden=1
+    let NERDTreeMinimalUI = 1
+
 
     function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
         exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg

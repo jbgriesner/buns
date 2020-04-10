@@ -27,7 +27,7 @@ function cheat() {
     alias x="exit"
     alias ..='cd ..'
     alias ...='cd ...'
-    alias vv='vifm'
+    alias vv='~/.config/vifm/scripts/vifmrun .'
     alias z='zathura'
 
 config config --local status.showUntrackedFiles no
@@ -54,3 +54,5 @@ neofetch
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export HISTTIMEFORMAT="%d/%m/%y %T "
+
+bindkey -v
