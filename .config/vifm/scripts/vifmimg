@@ -6,8 +6,37 @@ readonly ID_PREVIEW="preview"
 # and by doing so the preview will always be up-to-date with the file.
 # This however, requires more CPU and therefore affects the overall performance.
 
+# The messy code below is for moving pages in pdf files in the vifm file preview by
+# utilizing the < and > keys which will be bound to `vifmimg inc` or `vifmimg dec`.
+PDF_PAGE_CONFIG="$HOME/.config/vifm/vifmimgpdfpage"
+PDF_FILE_CONFIG="$HOME/.config/vifm/vifmimgpdffile"
+PDF_PAGE=1
+PDF_FILE=""
+# Initialize the variables and required files
+[[ -f "$PDF_PAGE_CONFIG" ]] && PDF_PAGE=$(cat $PDF_PAGE_CONFIG) || touch $PDF_PAGE_CONFIG
+[[ -f "$PDF_FILE_CONFIG" ]] && PDF_FILE=$(cat $PDF_FILE_CONFIG) || touch $PDF_FILE_CONFIG
+
+function inc() {
+	VAL="$(cat $PDF_PAGE_CONFIG)"
+	echo "$(expr $VAL + 1)" > $PDF_PAGE_CONFIG
+}
+
+function dec() {
+	VAL="$(cat $PDF_PAGE_CONFIG)"
+	echo "$(expr $VAL - 1)" > $PDF_PAGE_CONFIG
+	if [[ $VAL -le 0 ]]; then
+		echo 0 > $PDF_PAGE_CONFIG
+	fi
+}
+
 if [ -e "$FIFO_UEBERZUG" ]; then
-    if [[ "$1" == "draw" ]]; then
+    if [[ "$1" == "inc" ]]; then
+        inc "$@"
+
+    elif [[ "$1" == "dec" ]]; then
+        dec "$@"
+
+    elif [[ "$1" == "draw" ]]; then
         declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
                            [x]="$2" [y]="$3" [width]="$4" [height]="$5" \
                            [path]="${PWD}/$6") \
@@ -36,8 +65,19 @@ if [ -e "$FIFO_UEBERZUG" ]; then
 
     elif [[ "$1" == "pdfpreview" ]]; then
         echo -e "Loading preview..\nFile: $6"
-        [[ ! -d "/tmp${PWD}/$6/" ]] && mkdir -p "/tmp${PWD}/$6/"
-        [[ ! -f "/tmp${PWD}/$6.png" ]] && pdftoppm -png -singlefile "$6" "/tmp${PWD}/$6"
+#        [[ ! -d "/tmp${PWD}/$6/" ]] && mkdir -p "/tmp${PWD}/$6/"
+
+        if [[ ! "$6" == "$PDF_FILE" ]]; then
+            PDF_PAGE=1
+            echo 1 > $PDF_PAGE_CONFIG
+            rm -f "/tmp$PWD/$6.png"
+        fi
+        if [[ ! "$PDF_PAGE" == "1" ]] && [[ -f "/tmp$PWD/$6.png" ]]; then
+            rm -f "/tmp$PWD/$6.png"
+        fi
+
+        [[ ! -f "/tmp${PWD}/$6.png" ]] && pdftoppm -png -f $PDF_PAGE -singlefile "$6" "/tmp${PWD}/$6"
+        echo "$6" > $PDF_FILE_CONFIG
         declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
                            [x]="$2" [y]="$3" [width]="$4" [height]="$5" \
                            [path]="/tmp${PWD}/$6.png") \

@@ -55,4 +55,4 @@ neofetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
-bindkey -v
+# bindkey -v

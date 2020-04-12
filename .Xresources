@@ -84,7 +84,7 @@ URxvt.externalBorder:      0
 URxvt.scrollBar:           false
 
 !
- URxvt.perl-ext-common:     matcher,resize-font,foo,tabbed
+ URxvt.perl-ext-common:     matcher
 
 !
  URxvt.keysym.F11:          perl:fullscreen:switch
