@@ -125,6 +125,9 @@ let g:lightline = {
 map vv :Vifm<CR>
 map vs :VsplitVifm<CR>
 
+map <leader>d :windo diffthis<CR>
+map <leader>o :diffoff!<CR>
+
 " *******************************************************
 "   => Buffers Management
 " *******************************************************

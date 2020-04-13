@@ -22,13 +22,14 @@ function cheat() {
     alias get_nvim='curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     #alias v='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
     mkdir -p /tmp/log
-    alias v="vim -p"
+    alias v="vim"
     alias xup="xrdb ~/.Xresources"
     alias x="exit"
     alias ..='cd ..'
     alias ...='cd ...'
     alias vv='~/.config/vifm/scripts/vifmrun .'
     alias z='zathura'
+    alias b='bat'
 
 config config --local status.showUntrackedFiles no
 autoload -Uz compinit promptinit
