@@ -65,7 +65,7 @@ if [ -e "$FIFO_UEBERZUG" ]; then
 
     elif [[ "$1" == "pdfpreview" ]]; then
         echo -e "Loading preview..\nFile: $6"
-#        [[ ! -d "/tmp${PWD}/$6/" ]] && mkdir -p "/tmp${PWD}/$6/"
+        [[ ! -d "/tmp${PWD}/$6/" ]] && mkdir -p "/tmp${PWD}/$6/"
 
         if [[ ! "$6" == "$PDF_FILE" ]]; then
             PDF_PAGE=1
