@@ -90,6 +90,7 @@ bindsym $mod+x exec --no-startup-id lock
 
 # Vifm
 bindsym $mod+a exec $myTerm -e ~/.config/vifm/scripts/vifmrun
+bindsym $mod+SHIFT+Return exec $myTerm -e ~/.config/vifm/scripts/vifmrun
 
 
 # start dmenu (a program launcher)
@@ -357,7 +358,6 @@ bar {
 
 
 
-bindsym $mod+SHIFT+Return exec $HOME/scripts/lock
 bindsym $mod+SHIFT+n exec redshift -O 3900 -b 0.7
 bindsym $mod+SHIFT+d exec redshift -x
 bindsym $mod+p exec passmenu

@@ -17,12 +17,13 @@
     set softtabstop=4       " number of spaces in tab when editing
     set expandtab           " tabs are spaces
     set ignorecase          " ignore case when searching
-    "set showcmd             " show command in bottom bar
+    "set showcmd            " show command in bottom bar
     set noshowcmd           " Don't show command in status line
     set cmdheight=2         " Height of the command line
     set cursorline          " highlight current line
     set cursorcolumn
     set wildmenu            " visual autocomplete for command menu
+    set wildmode=longest,list,full
     set lazyredraw          " redraw only when we need to.
     set showmatch           " highlight matching [{()}]
     set incsearch           " search as characters are entered
@@ -105,6 +106,7 @@ let g:lightline = {
 
 " Mappings
     let mapleader=" "
+    vmap X y/<C-R>"<CR>
 
 "    nmap <C-t> :tabnew <CR>
 "    nmap <C-w> :tabclose <CR>
