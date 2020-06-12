@@ -30,13 +30,18 @@ function cheat() {
     alias vv='~/.config/vifm/scripts/vifmrun .'
     alias z='zathura'
     alias b='bat'
+    alias gg='bat ~/gitoken'
+    alias s='sxiv .'
 
 config config --local status.showUntrackedFiles no
-autoload -Uz compinit promptinit
 fpath+=~/.zfunc
+autoload -Uz compinit promptinit
 compinit
 promptinit
-prompt adam2
+
+#   ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"
+#   ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
@@ -44,12 +49,14 @@ SAVEHIST=100000
 # End of lines added by compinstall
 
 export PATH="${PATH}:${HOME}/scripts/:${HOME}/.local/bin/:${HOME}/.python3.7/usr/bin"
-export BIB="~/ved/latex/biblio.bib"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/lib:/usr/lib:/usr/local/lib:~/.python3.7"
 
 if [[ "$(tty)" = "/dev/tty1" ]]; then
 	exec startx
 fi
+
+export BROWSER="firefox"
+export READER="zathura"
 
 neofetch
 
@@ -57,3 +64,12 @@ neofetch
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # bindkey -v
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+
+source ~/ved/Haskell/zsh-git-prompt/zshrc.sh
+GIT_PROMPT_EXECUTABLE="haskell"
+PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_super_status) λ >  '
+export PATH="$HOME/.poetry/bin:$PATH"
+alias poetry="python3.7 $HOME/.poetry/bin/poetry"
+

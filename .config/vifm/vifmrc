@@ -368,6 +368,12 @@ filextype */
 "
 " 256-color terminal
 " fileviewer *.[ch],*.[ch]pp highlight -O xterm256 -s dante --syntax c %c
+" fileviewer *.[ch],*.[ch]pp,*.[ch]xx bat --color always --wrap never --pager never %c -q
+" fileviewer *.[ch],*.[ch]pp,*.[ch]xx bat --color always --wrap never --pager never %c -p || echo Bat got called
+" fileviewer *.[ch],*.[ch]pp,*.[ch]xx bat --color always --wrap never --pager never %c -p | head | cat -A
+fileviewer *[^/] bat --color always --wrap never --pager never %c -p
+" fileviewer *.[ch],*.[ch]pp,*.[ch]xx env -uCOLORTERM -O xterm256 bat --color always --wrap never --pager never %c -p
+
 " fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c
 "
 " 16-color terminal
@@ -445,14 +451,14 @@ elseif executable('xclip')
     " Yank current directory path into the clipboard
     nnoremap yd :!echo %d | xclip %i<cr>
     " Yank current file path into the clipboard
-    nnoremap yf :!echo %c:p | xclip %i<cr>
+    " nnoremap yf :!echo %c:p | xclip %i<cr>
 elseif executable('xsel')
     " Yank current directory path into primary and selection clipboards
     nnoremap yd :!echo -n %d | xsel --input --primary %i &&
                 \ echo -n %d | xsel --clipboard --input %i<cr>
     " Yank current file path into into primary and selection clipboards
-    nnoremap yf :!echo -n %c:p | xsel --input --primary %i &&
-                \ echo -n %c:p | xsel --clipboard --input %i<cr>
+"    nnoremap yf :!echo -n %c:p | xsel --input --primary %i &&
+"                \ echo -n %c:p | xsel --clipboard --input %i<cr>
 endif
 
 " Mappings for faster renaming
@@ -638,7 +644,7 @@ nnoremap gb :file &<cr>l
 nnoremap yd :!echo %d | xclip %i<cr>
 
 " Yank current file path into the clipboard
-nnoremap yf :!echo %c:p | xclip %i<cr>
+nnoremap yf :!echo -n %c:p | xclip %i<cr>:echo expand('%"c:p') "is yanked to clipboard"<cr>
 
 " Mappings for faster renaming
 nnoremap I cw<c-a>

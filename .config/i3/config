@@ -32,7 +32,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -columns 3
 bindsym $mod+c exec --no-startup-id "rofi -show calc -modi calc -no-show-match -no-sort"
 
 # start a $myTerm
-set $myTerm urxvt
+# set $myTerm urxvt
 # set $myTerm st
 set $myTerm st -t "Simple Terminal" -f "Source Code Pro:style=Semibold:size=10"
 bindsym $mod+Return exec $myTerm
@@ -40,6 +40,7 @@ bindsym $mod+Return exec $myTerm
 
 # Start Applications
 bindsym $mod+F1 exec firefox
+bindsym $mod+F2 exec thunar
 bindsym Print exec --no-startup-id scrot -s
 
 # workspace back and forth (with/without active container)
@@ -133,7 +134,9 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+w layout tabbed
+bindsym $mod+w exec --no-startup-id $myTerm -e $EDITOR -c "VimwikiIndex"
+
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating

@@ -20,8 +20,8 @@
     "set showcmd            " show command in bottom bar
     set noshowcmd           " Don't show command in status line
     set cmdheight=2         " Height of the command line
-    set cursorline          " highlight current line
-    set cursorcolumn
+"     set cursorline          " highlight current line
+"     set cursorcolumn
     set wildmenu            " visual autocomplete for command menu
     set wildmode=longest,list,full
     set lazyredraw          " redraw only when we need to.
@@ -76,8 +76,23 @@ call plug#begin('~/.vim/plugged')
    "Plug 'junegunn/vim-easy-align'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
+    Plug 'monkoose/fzf-hoogle.vim'
+
+    " Latex stuff
     Plug 'lervag/vimtex'
-    Plug 'sirver/ultisnips'
+
+    " A bunch of useful language related snippets (ultisnips is the engine).
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+    " Vimwiki
+    Plug 'vimwiki/vimwiki'
+    Plug 'mattn/calendar-vim'
+    Plug 'vim-pandoc/vim-rmarkdown' " RMarkdown Docs in Vim
+    Plug 'vim-pandoc/vim-pandoc' " RMarkdown Docs in Vim
+    Plug 'vim-pandoc/vim-pandoc-syntax' " RMarkdown Docs in Vim
+
+    Plug 'mileszs/ack.vim'
+
     Plug 'bling/vim-bufferline'
     Plug 'tpope/vim-fugitive'
     Plug 'jeetsukumaran/vim-buffergator'
@@ -108,6 +123,10 @@ let g:lightline = {
     let mapleader=" "
     vmap X y/<C-R>"<CR>
 
+    map <leader>i {
+    map <leader>u }
+
+
 "    nmap <C-t> :tabnew <CR>
 "    nmap <C-w> :tabclose <CR>
     "cycling tabs
@@ -128,7 +147,7 @@ map vv :Vifm<CR>
 map vs :VsplitVifm<CR>
 
 map <leader>d :windo diffthis<CR>
-map <leader>o :diffoff!<CR>
+map <leader>D :diffoff!<CR>
 
 " *******************************************************
 "   => Buffers Management
@@ -144,21 +163,23 @@ map <leader>o :diffoff!<CR>
 "     nmap <leader>l :bnext<CR>
     nmap <tab> :bnext<CR>
     " Move to the previous buffer
-    nmap <leader>h :bprevious<CR>
+    nmap <C-tab> :bprevious<CR>
     " Close the current buffer and move to the previous one
     " This replicates the idea of closing a tab
     nmap <leader>j :bp <BAR> bd #<CR>
     " Alternate file
     nnoremap ff :e#<CR>
 
-    nmap <leader>s :new<CR>
-    nmap <leader>v :vnew<CR>
+    nmap <leader>ss :new<CR>
+    nmap <leader>sv :vnew<CR>
 
     " Show all open buffers and their status
 "    nmap <leader>b :ls<CR>
 
     nnoremap <leader>b :Buffers<CR>
     nnoremap <leader>f :Lines<CR>
+    nnoremap <leader>aa :Ag<CR>
+    nnoremap <leader>ak :Ack<CR>
 
 
     nnoremap <leader>; :nohlsearch<CR>
@@ -177,10 +198,10 @@ map <leader>o :diffoff!<CR>
     map <C-k> <C-w>k
     map <C-l> <C-w>l
 
-    nnoremap <Up>    :resize +2<CR>
-	nnoremap <Down>  :resize -2<CR>
-	nnoremap <Left>  :vertical resize +2<CR>
-	nnoremap <Right> :vertical resize -2<CR>
+    nnoremap <C-Up>    :resize +2<CR>
+	nnoremap <C-Down>  :resize -2<CR>
+	nnoremap <C-Left>  :vertical resize +2<CR>
+	nnoremap <C-Right> :vertical resize -2<CR>
 
     nnoremap H 0
 	nnoremap L $
@@ -197,6 +218,7 @@ map <leader>o :diffoff!<CR>
     nnoremap gV `[v`]                                   " highlight last inserted text
 
     map <silent><C-n> :NERDTreeToggle<CR>
+    map <leader>tt :terminal<CR>
 
     " search current whole line in the file
     nnoremap <leader>* 0y$/\V<c-r>"<cr>
@@ -219,6 +241,8 @@ map <leader>o :diffoff!<CR>
     autocmd FileType vim              let b:comment_leader = '" '
     noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
     noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+    nnoremap <buffer> <leader>hh :Hoogle <c-r>=expand("<cword>")<CR><CR>
 
 " Automatically deletes all trailing whitespace on save
     autocmd BufWritePre * %s/\s\+$//e
@@ -303,3 +327,112 @@ map <leader>o :diffoff!<CR>
     nmap <leader>le <plug>(vimtex-errors)
     nmap <leader>lo <plug>(vimtex-compile-output)
     nmap <leader>lc <plug>(vimtex-clean)
+
+
+" ctags
+    function! s:tags_sink(line)
+    let parts = split(a:line, '\t\zs')
+    let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+    execute 'silent e' parts[1][:-2]
+    let [magic, &magic] = [&magic, 0]
+    execute excmd
+    let &magic = magic
+    endfunction
+
+    function! s:tags()
+    if empty(tagfiles())
+        echohl WarningMsg
+        echom 'Preparing tags'
+        echohl None
+        call system('ctags -R')
+    endif
+
+    call fzf#run({
+    \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+    \            '| grep -v -a ^!',
+    \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+    \ 'down':    '40%',
+    \ 'sink':    function('s:tags_sink')})
+    endfunction
+
+    command! Tags call s:tags()
+
+
+let g:ackprg = 'ag --vimgrep'
+
+" Cycle through splits.
+nnoremap <S-Tab> <C-w>w
+
+" vimwiki
+    nmap <leader>zz <plug>VimwikiIndex
+    nmap <leader>zi <plug>VimwikiDiaryIndex
+    nmap <leader>zs <plug>VimwikiUISelect
+    nmap <leader>zt <plug>VimwikiTabIndex
+    nmap <leader>z<Space>m <plug>VimwikiMakeTomorrowDiaryNote
+    nmap <leader>z<Space>y <plug>VimwikiMakeYesterdayDiaryNote
+    nmap <leader>z<Space>z <plug>VimwikiTabMakeDiaryNote
+    nmap <leader>z<Space>i <plug>VimwikiDiaryGenerateLinks
+    nmap <leader>z<Space>d <plug>VimwikiMakeDiaryNote
+
+    let g:vim_markdown_math = 1
+    let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+    let g:vimwiki_list = [{'path': '/home/jb/research/wiki/', 'syntax': 'markdown', 'ext': '.md', 'nested_syntaxes': {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'haskell': 'hs'}}]
+    let g:vimwiki_global_ext = 0
+
+
+    au BufRead,BufNewFile *.wiki,*.md set filetype=vimwiki
+    autocmd FileType vimwiki map di :VimwikiMakeDiaryNote<CR>
+    let g:calendar_options = 'nornu'
+
+    function! ToggleCalendar()
+    execute ":Calendar"
+    if exists("g:calendar_open")
+        if g:calendar_open == 1
+        execute "q"
+        unlet g:calendar_open
+        else
+        g:calendar_open = 1
+        end
+    else
+        let g:calendar_open = 1
+    end
+    endfunction
+
+    autocmd FileType vimwiki map c :call ToggleCalendar()<CR>
+
+
+
+"=================================="
+"       Document Compiling         "
+"=================================="
+        " ~~~~~ Compile document, be it groff/LaTeX/markdown/etc.
+                map <leader>c :w! \| !compiler <c-r>%<CR>
+        " ~~~~~ Turn on Autocompiler mode
+                map <leader>a :!setsid autocomp % &<CR>
+        " ~~~~~ Open corresponding .pdf/.html or preview
+                map <leader>pp :!opout <c-r>%<CR><CR>
+        " ~~~~~ Cleans out tex build files when I close out of a .tex file.
+               " autocmd VimLeave *.tex !texclear %
+        " ~~~~~ Maps the typical auto compiler key to \o which calles the
+        " ~~~~~ Vim Live Latex preview function for live preview
+"                autocmd FileType tex map <leader>a \o
+"
+"
+" au BufReadCmd *.pdf silent !okular % &
+nnoremap <leader>o :!okular <cfile> &<CR><CR>
+
+
+
+" This function requires you select the numbers
+fun! SumVis()
+    try
+        let l:a_save = @a
+        norm! gv"ay
+        let @a = substitute(@a,'[^0-9. ]','+','g')
+        exec "norm! '>o"
+        exec "norm! iTotal \<c-r>=\<c-r>a\<cr>"
+     finally
+        let @a = l:a_save
+     endtry
+endfun
+vnoremap <leader>t :<C-u>call SumVis()<cr>
