@@ -57,6 +57,7 @@ fi
 
 export BROWSER="firefox"
 export READER="zathura"
+export EDITOR="vim"
 
 neofetch
 
@@ -67,7 +68,7 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 
-source ~/ved/Haskell/zsh-git-prompt/zshrc.sh
+source ~/ved/zsh-git-prompt/zshrc.sh
 GIT_PROMPT_EXECUTABLE="haskell"
 PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_super_status) λ >  '
 export PATH="$HOME/.poetry/bin:$PATH"

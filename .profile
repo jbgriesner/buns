@@ -28,3 +28,5 @@ export READER="zathura"
 # sudo -n loadkeys ~/.local/bin/ttymaps.kmap 2>/dev/null
 
 export PATH="$HOME/.poetry/bin:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"

@@ -66,7 +66,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-    "Plug 'morhetz/gruvbox'
+    Plug 'morhetz/gruvbox'
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'vim-syntastic/syntastic'
    "Plug 'godlygeek/tabular'
@@ -82,7 +82,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'lervag/vimtex'
 
     " A bunch of useful language related snippets (ultisnips is the engine).
-    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
     " Vimwiki
     Plug 'vimwiki/vimwiki'

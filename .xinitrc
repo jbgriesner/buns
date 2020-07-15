@@ -3,5 +3,8 @@ setxkbmap fr
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 [ -f ~/.xprofile ] && . ~/.xprofile
 
-exec i3
-~/.fehbg &
+xscreensaver &
+pulseaudio --start
+
+exec xmonad
+#~/.fehbg &
