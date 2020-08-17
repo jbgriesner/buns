@@ -72,5 +72,5 @@ source ~/ved/zsh-git-prompt/zshrc.sh
 GIT_PROMPT_EXECUTABLE="haskell"
 PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_super_status) λ >  '
 export PATH="$HOME/.poetry/bin:$PATH"
-alias poetry="python3.7 $HOME/.poetry/bin/poetry"
+#alias poetry="python3.7 $HOME/.poetry/bin/poetry"
 

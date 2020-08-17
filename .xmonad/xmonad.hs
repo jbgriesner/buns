@@ -113,7 +113,7 @@ myStartupHook = do
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 18 &"
-          setWMName "iejhieheiuhfeuioh"
+          setWMName "LG3D"
 
 ------------------------------------------------------------------------
 -- GRID SELECT
