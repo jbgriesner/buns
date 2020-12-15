@@ -1,4 +1,6 @@
 "  General Vim settings
+    let g:vimspector_enable_mappings = 'HUMAN'
+    let g:vimspector_bottombar_height = 10
     set nocompatible        " This must be first, because it changes other options as side effect
     set t_Co=256            " Enable 256 color terminal
     syntax enable           " enable syntax processing
@@ -56,6 +58,64 @@
     set wildignore+=node_modules/*,bower_components/*
     set noshowmode
 
+    set updatetime=300
+    " Don't pass messages to |ins-completion-menu|.
+    set shortmess+=c
+
+	inoremap <silent><expr> <TAB>
+		\ pumvisible() ? "\<C-n>" :
+		\ <SID>check_back_space() ? "\<TAB>" :
+		\ coc#refresh()
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~# '\s'
+	endfunction
+
+	" Make <CR> auto-select the first completion item and notify coc.nvim to
+	" format on enter, <cr> could be remapped by other vim plugin
+	inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+								\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+	" Use `[g` and `]g` to navigate diagnostics
+	" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+	nmap <silent> (g <Plug>(coc-diagnostic-prev)
+	nmap <silent> )g <Plug>(coc-diagnostic-next)
+
+	" GoTo code navigation.
+	nmap <silent> gd <Plug>(coc-definition)
+	nmap <silent> gy <Plug>(coc-type-definition)
+	nmap <silent> gi <Plug>(coc-implementation)
+	nmap <silent> gr <Plug>(coc-references)
+
+	" Use K to show documentation in preview window.
+	nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
+
+	function! s:show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	elseif (coc#rpc#ready())
+		call CocActionAsync('doHover')
+	else
+		execute '!' . &keywordprg . " " . expand('<cword>')
+	endif
+	endfunction
+
+	" Highlight the symbol and its references when holding the cursor.
+ 	autocmd CursorHold * silent call CocActionAsync('highlight')
+
+	" Mappings for CoCList
+	" Show all diagnostics.
+	nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+
+	" Do default action for next item.
+	nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+	" Do default action for previous item.
+	nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+	" Resume latest coc list.
+	nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
     " Yank buffer's absolute path to X11 clipboard
     nnoremap <Leader>y :let @+=expand("%:p")<CR>:echo 'Copied to clipboard.'<CR>
 
@@ -66,7 +126,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-    Plug 'morhetz/gruvbox'
+    "Plug 'morhetz/gruvbox'
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'vim-syntastic/syntastic'
    "Plug 'godlygeek/tabular'
@@ -82,7 +142,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'lervag/vimtex'
 
     " A bunch of useful language related snippets (ultisnips is the engine).
-"     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
     " Vimwiki
     Plug 'vimwiki/vimwiki'
@@ -98,17 +158,48 @@ call plug#begin('~/.vim/plugged')
     Plug 'jeetsukumaran/vim-buffergator'
     Plug 'itchyny/lightline.vim'
     Plug 'vifm/vifm.vim'
+
+    " Use release branch (recommend)
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+    Plug 'prabirshrestha/vim-lsp'
+
+    Plug 'neovimhaskell/haskell-vim'
+
+
+    Plug 'puremourning/vimspector'
+
+
 call plug#end()
 
+" let g:lightline = {
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'FugitiveHead'
+"       \ },
+"       \ }
+"
+
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
 let g:lightline = {
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
       \ },
       \ }
+
+
 
     set background=dark
     colorscheme gruvbox
@@ -436,3 +527,25 @@ fun! SumVis()
      endtry
 endfun
 vnoremap <leader>t :<C-u>call SumVis()<cr>
+
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+
+
+
+
+" haskell-vim
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+
