@@ -53,6 +53,8 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/lib:/usr/lib:/usr/local/lib:~/.python3
 
 if [[ "$(tty)" = "/dev/tty1" ]]; then
 	exec startx
+	sleep 3
+	./home/jb/.screenlayout/main_dual.sh
 fi
 
 export BROWSER="firefox"
