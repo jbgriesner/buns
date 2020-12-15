@@ -20,7 +20,7 @@ function cheat() {
     alias l='ls -lah --color=auto'
     alias config='/usr/bin/git --git-dir=$HOME/.buns/ --work-tree=$HOME'
     alias get_nvim='curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    #alias v='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
+    alias n='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
     mkdir -p /tmp/log
     alias v="vim"
     alias xup="xrdb ~/.Xresources"
@@ -73,3 +73,4 @@ PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_super_status) λ >  
 export PATH="$HOME/.poetry/bin:$PATH"
 alias poetry="python3.7 $HOME/.poetry/bin/poetry"
 
+[ -f "/home/jb/.ghcup/env" ] && source "/home/jb/.ghcup/env" # ghcup-env

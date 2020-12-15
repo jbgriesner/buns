@@ -1,103 +1,75 @@
-""" Plugins
-"""" Dein-begin
+" Plugins
+call plug#begin()
+    Plug 'morhetz/gruvbox'
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+	Plug 'mhinz/vim-startify'
+    Plug 'vim-syntastic/syntastic'
+   "Plug 'godlygeek/tabular'
+   "Plug 'Shougo/unite.vim'
+   "Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+   "Plug 'bronson/vim-trailing-whitespace'
+   "Plug 'junegunn/vim-easy-align'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'monkoose/fzf-hoogle.vim'
 
-if &runtimepath !~# '/dein.vim'
-  let s:dein_dir = expand('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+    " Latex stuff
+    Plug 'lervag/vimtex'
 
-  if !isdirectory(s:dein_dir)
-    call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_dir))
-  endif
+    " A bunch of useful language related snippets (ultisnips is the engine).
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-  execute 'set runtimepath^=' . s:dein_dir
-endif
+    " Vimwiki
+    Plug 'vimwiki/vimwiki'
+    Plug 'mattn/calendar-vim'
+    Plug 'vim-pandoc/vim-rmarkdown' " RMarkdown Docs in Vim
+    Plug 'vim-pandoc/vim-pandoc' " RMarkdown Docs in Vim
+    Plug 'vim-pandoc/vim-pandoc-syntax' " RMarkdown Docs in Vim
 
-call dein#begin(expand('~/.cache/dein'))
+    Plug 'mileszs/ack.vim'
 
-"""" Plugin manager
-call dein#add('Shougo/dein.vim')
-call dein#add('haya14busa/dein-command.vim')
+    Plug 'bling/vim-bufferline'
+    Plug 'tpope/vim-fugitive'
+    Plug 'jeetsukumaran/vim-buffergator'
+    Plug 'itchyny/lightline.vim'
+    Plug 'mgee/lightline-bufferline'                            " Top bar
+    Plug 'maximbaz/lightline-trailing-whitespace'               " Trailing whitespace indicator
+"     Plug 'maximbaz/lightline-ale'                               " ALE indicator
+    Plug 'vifm/vifm.vim'
 
-"""" Look & feel
-call dein#add('morhetz/gruvbox')                                      " Color theme
-call dein#add('itchyny/lightline.vim')                                " Bottom bar
-call dein#add('mgee/lightline-bufferline')                            " Top bar
-call dein#add('maximbaz/lightline-trailing-whitespace')               " Trailing whitespace indicator
-call dein#add('maximbaz/lightline-ale')                               " ALE indicator
-call dein#add('gcavallanti/vim-noscrollbar')                          " Scrollbar for statusline
-call dein#add('cskeeters/vim-smooth-scroll')                          " Smooth scroll
-call dein#add('moll/vim-bbye')                                        " Keep window when closing a buffer
-call dein#add('romainl/vim-qf')                                       " Quickfix / Loclist improvements
+    " Use release branch (recommend)
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'ryanoasis/vim-devicons'
 
+    Plug 'neovimhaskell/haskell-vim'
 
-call dein#end()
+    Plug 'puremourning/vimspector'
 
-
-
-"""" Theme
-colorscheme gruvbox
-"set termguicolors
-set background=dark
-let g:gruvbox_italic=1
-let g:gruvbox_invert_selection=0
-set guioptions+=c
-set guioptions-=T
-set guioptions-=m
-set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
-hi Normal ctermbg=NONE guibg=NONE
+    Plug 'liuchengxu/vim-which-key'
+call plug#end()
 
 
-"""" Lightline
-let g:lightline = {
-      \   'colorscheme': 'gruvbox',
-      \   'active': {
-      \     'left': [ [ 'mode' ], [ 'pwd' ] ],
-      \     'right': [ [ 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ], [ 'scrollbar' ] ],
-      \   },
-      \   'inactive': {
-      \     'left': [ [ 'pwd' ] ],
-      \     'right': [ [ 'lineinfo' ], [ 'fileinfo' ], [ 'scrollbar' ] ],
-      \   },
-      \   'tabline': {
-      \     'left': [ [ 'buffers' ] ],
-      \     'right': [ [ 'close' ] ],
-      \   },
-      \   'separator': { 'left': '', 'right': '' },
-      \   'subseparator': { 'left': '', 'right': '' },
-      \   'mode_map': {
-      \     'n' : 'N',
-      \     'i' : 'I',
-      \     'R' : 'R',
-      \     'v' : 'V',
-      \     'V' : 'V-LINE',
-      \     "\<C-v>": 'V-BLOCK',
-      \     'c' : 'C',
-      \     's' : 'S',
-      \     'S' : 'S-LINE',
-      \     "\<C-s>": 'S-BLOCK',
-      \     't': '󰀣 ',
-      \   },
-      \   'component': {
-      \     'lineinfo': '%l:%-v',
-      \   },
-      \   'component_expand': {
-      \     'buffers': 'lightline#bufferline#buffers',
-      \     'trailing': 'lightline#trailing_whitespace#component',
-      \     'linter_ok': 'lightline#ale#ok',
-      \     'linter_checking': 'lightline#ale#checking',
-      \     'linter_warnings': 'lightline#ale#warnings',
-      \     'linter_errors': 'lightline#ale#errors',
-      \   },
-      \   'component_function': {
-      \     'pwd': 'LightlineWorkingDirectory',
-      \     'scrollbar': 'LightlineScrollbar',
-      \     'fileinfo': 'LightlineFileinfo',
-      \   },
-      \   'component_type': {
-      \     'buffers': 'tabsel',
-      \     'trailing': 'error',
-      \     'linter_ok': 'left',
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \   },
-      \ }
+" call dein#add('gcavallanti/vim-noscrollbar')                          " Scrollbar for statusline
+" call dein#add('cskeeters/vim-smooth-scroll')                          " Smooth scroll
+" call dein#add('moll/vim-bbye')                                        " Keep window when closing a buffer
+" call dein#add('romainl/vim-qf')                                       " Quickfix / Loclist improvements
+
+" Imports
+source $HOME/.config/nvim/basic.vim
+source $HOME/.config/nvim/gruvbox.vim
+source $HOME/.config/nvim/nerdtree.vim
+source $HOME/.config/nvim/fzf.vim
+source $HOME/.config/nvim/coc.vim
+source $HOME/.config/nvim/vimspector.vim
+source $HOME/.config/nvim/ack.vim
+source $HOME/.config/nvim/buffers.vim
+source $HOME/.config/nvim/lightline.vim
+" source $HOME/.config/nvim/which-key.vim
+source $HOME/.config/nvim/whichkey.vim
+" source $HOME/.config/nvim/ctags.vim
+" source $HOME/.config/nvim/haskell-vim.vim
+" source $HOME/.config/nvim/hoogle.vim
+" source $HOME/.config/nvim/init.vim
+" source $HOME/.config/nvim/vifm.vim
+" source $HOME/.config/nvim/vimtex.vim
+" source $HOME/.config/nvim/vimwiki.vim
