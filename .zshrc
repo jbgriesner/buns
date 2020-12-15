@@ -32,6 +32,7 @@ function cheat() {
     alias b='bat'
     alias gg='bat ~/gitoken'
     alias s='sxiv .'
+    alias n='nvim'
 
 config config --local status.showUntrackedFiles no
 fpath+=~/.zfunc
