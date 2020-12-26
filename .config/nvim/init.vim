@@ -71,5 +71,5 @@ source $HOME/.config/nvim/whichkey.vim
 " source $HOME/.config/nvim/hoogle.vim
 " source $HOME/.config/nvim/init.vim
 " source $HOME/.config/nvim/vifm.vim
-" source $HOME/.config/nvim/vimtex.vim
+source $HOME/.config/nvim/vimtex.vim
 " source $HOME/.config/nvim/vimwiki.vim

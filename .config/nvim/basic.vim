@@ -202,3 +202,6 @@ function! OpenTerminal()
   resize 10
 endfunction
 nnoremap <leader>tt :call OpenTerminal()<CR>
+
+tnoremap <Esc> <C-\><C-n>:q!<CR>
+
